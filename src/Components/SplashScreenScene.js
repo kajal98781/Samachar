@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
 	Platform,
 	StyleSheet,
@@ -15,7 +15,7 @@ import Pulse from 'react-native-pulse';
 import GridView from 'react-native-gridview';
 import HamburgerIcon from './HamburgerIcon';
 
-class SplashScreenScene extends PureComponent {
+class SplashScreenScene extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -54,11 +54,11 @@ class SplashScreenScene extends PureComponent {
 								<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
 							}
 							renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
+								console.log(item, ' ' + sectionID, ' ' + rowID, ' ' + itemIndex, ' ' + itemID);
 								return (
 									<TouchableOpacity
 										onPress={() => {
-											console.log(this.props, 'Props');
-											this.props.navigation.navigate('NewsDetailScene', { index: itemIndex });
+											this.props.navigation.navigate('NewsDetailScene', { index: itemID });
 										}}
 									>
 										<View style={{ backgroundColor: 'white', margin: 7, height: 200, borderRadius: 8 }}>

@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Image } from 'react-native';
 import * as actions from '../redux/actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-class NewsDetailScene extends PureComponent {
+class NewsDetailScene extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -45,4 +45,4 @@ function mapStateToProps(state) {
 		articles: state.new_reducer.articles
 	};
 }
-export default connect(mapStateToProps, actions)(NewsDetailScene);
+export default connect(mapStateToProps)(NewsDetailScene);
