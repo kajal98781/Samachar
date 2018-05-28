@@ -64,7 +64,13 @@ class SplashScreenScene extends Component {
 										<View style={{ backgroundColor: 'white', margin: 7, height: 200, borderRadius: 8 }}>
 											<Image
 												source={{ uri: item.urlToImage }}
-												style={{ flex: 1, height: 150, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
+												style={{
+													width: '100%',
+													height: 120,
+													resizeMode: 'cover',
+													borderTopLeftRadius: 10,
+													borderTopRightRadius: 10
+												}}
 											/>
 											<Text style={{ marginTop: 5, padding: 5 }}>{item.title}</Text>
 										</View>
