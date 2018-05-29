@@ -3,6 +3,7 @@ import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react
 import NewsDetailScene from './NewsDetailScene';
 import NewsDetail from './NewsDetail';
 import NewsScene from './NewsScene';
+import { Images } from '../images/Images';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 
 const isTabBarVisible = routes => {
@@ -64,10 +65,7 @@ class SplashScreenScene extends PureComponent {
 							this.props.navigation.openDrawer();
 						}}
 					>
-						<Image
-							source={{ uri: 'https://reactnativecode.com/wp-content/uploads/2018/04/hamburger_icon.png' }}
-							style={{ width: 25, height: 25, marginLeft: 5 }}
-						/>
+						<Image source={Images.menu.source} style={{ width: 25, height: 25, marginLeft: 5 }} />
 					</TouchableOpacity>
 					<Text style={{ textSize: 15, color: 'white', marginLeft: 20 }}>Samachar</Text>
 				</View>
