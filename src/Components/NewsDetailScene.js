@@ -12,10 +12,15 @@ class NewsDetailScene extends Component {
 			imageLoader: false
 		};
 	}
-
+	componentDidMount() {
+		setTimeout(() => {
+			this.setState({ imageLoader: true });
+		}, 200);
+	}
 	render() {
 		const { navigation } = this.props;
 		index = navigation.getParam('index', 0);
+
 		return (
 			<ParallaxScrollView
 				backgroundColor="grey"
