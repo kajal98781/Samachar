@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Image } from 'react-native';
+import { Platform, StyleSheet, Text, View, Image, BackHandler } from 'react-native';
 import * as actions from '../redux/actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,14 +16,17 @@ class NewsDetailScene extends Component {
 		setTimeout(() => {
 			this.setState({ imageLoader: true });
 		}, 200);
+		BackHandler.addEventListener('hardwareBackPress', function() {
+			if (this.props.navigation.state.routeName == 'News') {
+				BackHandler.exitApp();
+				return true;
+			}
+			return false;
+		});
 	}
-	static tabbarOptions = {
-		hide: true
-	};
 
 	render() {
 		const { navigation } = this.props;
-		var uri = this.props.articles[index].urlToImage;
 		index = navigation.getParam('index', 0);
 		return (
 			<ParallaxScrollView
@@ -41,10 +44,14 @@ class NewsDetailScene extends Component {
 					</View>
 				)}
 			>
-				<View style={{ height: 400 }}>
-					<Text>{this.props.articles[index].title}</Text>
-					<Text>{this.props.articles[index].description}</Text>
-					<Text>{this.props.articles[index].publishedAt}</Text>
+				<View style={{ height: 400, margin: 10 }}>
+					<Text style={{ fontSize: 20, color: 'black', fontStyle: 'bold' }}>{this.props.articles[index].title}</Text>
+					<Text style={{ fontSize: 15, color: 'rgba(0,0,0,0.8)', marginTop: 10, fontStyle: 'normal' }}>
+						{this.props.articles[index].description}
+					</Text>
+					<Text style={{ fontSize: 15, color: 'rgba(0,0,0,0.8)', marginTop: 10, fontStyle: 'normal' }}>
+						{this.props.articles[index].publishedAt}
+					</Text>
 				</View>
 			</ParallaxScrollView>
 		);
