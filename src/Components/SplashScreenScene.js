@@ -5,6 +5,7 @@ import NewsDetail from './NewsDetail';
 import NewsScene from './NewsScene';
 import { Images } from '../images/Images';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
 const isTabBarVisible = routes => {
 	var isVisible = true;
@@ -18,10 +19,13 @@ const isTabBarVisible = routes => {
 	}
 	return isVisible;
 };
+
 const AppTabBar = createMaterialTopTabNavigator(
 	{
-		tab1: { screen: NewsScene },
-		tab2: { screen: NewsDetail }
+		tab1: {
+			screen: NewsScene
+		},
+		tab2: { screen: NewsDetailScene }
 	},
 	{
 		navigationOptions: ({ navigation }) => ({
@@ -47,29 +51,54 @@ const AppTabBar = createMaterialTopTabNavigator(
 		})
 	}
 );
+
+const NewsSceneStack = createStackNavigator({
+	TabBar: {
+		screen: AppTabBar,
+		navigationOptions: {
+			header: null
+		}
+	},
+	News: {
+		screen: NewsScene,
+		navigationOptions: {
+			header: null
+		}
+	},
+	NewsDetailScene: {
+		screen: NewsDetailScene
+	}
+});
 class SplashScreenScene extends PureComponent {
-	static router = AppTabBar.router;
+	state = {
+		isShowHeader: true
+	};
+	static router = NewsSceneStack.router;
 	render() {
+		const { navigation } = this.props;
 		return (
 			<View style={styles.container}>
-				<View
-					style={{
-						height: 50,
-						backgroundColor: 'rgb(2,136,141)',
-						flexDirection: 'row',
-						alignItems: 'center'
-					}}
-				>
-					<TouchableOpacity
-						onPress={() => {
-							this.props.navigation.openDrawer();
+				{this.state.isShowHeader && (
+					<View
+						style={{
+							height: 50,
+							backgroundColor: 'rgb(2,136,141)',
+							flexDirection: 'row',
+							alignItems: 'center'
 						}}
 					>
-						<Image source={Images.menu.source} style={{ width: 25, height: 25, marginLeft: 5 }} />
-					</TouchableOpacity>
-					<Text style={{ textSize: 15, color: 'white', marginLeft: 20 }}>Samachar</Text>
-				</View>
-				<AppTabBar navigation={this.props.navigation} />
+						<TouchableOpacity
+							onPress={() => {
+								this.props.navigation.openDrawer();
+							}}
+						>
+							<Image source={Images.menu.source} style={{ width: 25, height: 25, marginLeft: 5 }} />
+						</TouchableOpacity>
+						}
+						<Text style={{ textSize: 15, color: 'white', marginLeft: 20 }}>Samachar</Text>
+					</View>
+				)}
+				<NewsSceneStack navigation={this.props.navigation} />
 			</View>
 		);
 	}

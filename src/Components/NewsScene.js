@@ -60,7 +60,13 @@ class NewsScene extends PureComponent {
 										<View style={{ backgroundColor: 'white', margin: 7, height: 200, borderRadius: 8 }}>
 											<Image
 												source={{ uri: item.urlToImage }}
-												style={{ flex: 1, height: 150, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
+												style={{
+													flex: 1,
+													height: 150,
+													borderTopLeftRadius: 10,
+													resizeMode: 'cover',
+													borderTopRightRadius: 10
+												}}
 											/>
 											<Text style={{ marginTop: 5, padding: 5 }}>{item.title}</Text>
 										</View>

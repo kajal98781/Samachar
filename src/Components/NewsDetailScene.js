@@ -12,18 +12,6 @@ class NewsDetailScene extends Component {
 			imageLoader: false
 		};
 	}
-	componentDidMount() {
-		setTimeout(() => {
-			this.setState({ imageLoader: true });
-		}, 200);
-		BackHandler.addEventListener('hardwareBackPress', function() {
-			if (this.props.navigation.state.routeName == 'News') {
-				BackHandler.exitApp();
-				return true;
-			}
-			return false;
-		});
-	}
 
 	render() {
 		const { navigation } = this.props;
