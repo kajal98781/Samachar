@@ -6,16 +6,25 @@ import PropTypes from 'prop-types';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 class NewsDetailScene extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			imageLoader: false
-		};
+	state = {
+		imageLoader: false
+	};
+	static navigationOptions = ({ navigation }) => ({
+		title: `${navigation.state.routeName}`,
+		headerTitleStyle: { textAlign: 'left', alignSelf: 'center' },
+		headerStyle: {
+			backgroundColor: 'white'
+		}
+	});
+	componentDidMount() {
+		setTimeout(() => {
+			this.setState({ imageLoader: true });
+		}, 200);
 	}
-
 	render() {
 		const { navigation } = this.props;
 		index = navigation.getParam('index', 0);
+
 		return (
 			<ParallaxScrollView
 				backgroundColor="grey"

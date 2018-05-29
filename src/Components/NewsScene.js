@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { setTopNews } from '../redux/actions/TopHeadingNewsActions';
 import Pulse from 'react-native-pulse';
 import GridView from 'react-native-gridview';
+import { Images } from '../images/Images';
 
 class NewsScene extends PureComponent {
 	state = {
@@ -40,6 +41,23 @@ class NewsScene extends PureComponent {
 		console.log(showApiData);
 		return (
 			<View style={styles.container}>
+				<View
+					style={{
+						height: 50,
+						backgroundColor: 'rgb(2,136,141)',
+						flexDirection: 'row',
+						alignItems: 'center'
+					}}
+				>
+					<TouchableOpacity
+						onPress={() => {
+							this.props.navigation.openDrawer();
+						}}
+					>
+						<Image source={Images.menu.source} style={{ width: 25, height: 25, marginLeft: 5 }} />
+					</TouchableOpacity>
+					<Text style={{ textSize: 15, color: 'white', marginLeft: 20 }}>Samachar</Text>
+				</View>
 				{!showApiData && <Pulse color="rgb(2,136,141)" numPulses={5} diameter={100} speed={10} duration={2000} />}
 				{showApiData && (
 					<View>
@@ -68,7 +86,9 @@ class NewsScene extends PureComponent {
 													borderTopRightRadius: 10
 												}}
 											/>
-											<Text style={{ marginTop: 5, padding: 5 }}>{item.title}</Text>
+											<Text numberOfLines={3} style={{ marginTop: 5, padding: 5 }}>
+												{item.title}
+											</Text>
 										</View>
 									</TouchableOpacity>
 								);
