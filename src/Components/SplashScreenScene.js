@@ -1,79 +1,104 @@
-import React, { Component } from 'react';
-import {
-	Platform,
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	TouchableOpacity,
-	TouchableHighlight,
-	RefreshControl
-} from 'react-native';
-import { connect } from 'react-redux';
-import { setTopNews } from '../redux/actions/TopHeadingNewsActions';
-import Pulse from 'react-native-pulse';
-import GridView from 'react-native-gridview';
-import HamburgerIcon from './HamburgerIcon';
+import React, { PureComponent } from 'react';
+import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import NewsDetailScene from './NewsDetailScene';
+import NewsDetail from './NewsDetail';
+import NewsScene from './NewsScene';
+import { Images } from '../images/Images';
+import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
-class SplashScreenScene extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			refreshing: false
-		};
-	}
-
-	componentDidMount() {
-		this.props.setTopNews();
-	}
-
-	_onRefresh() {
-		if (this.state.refreshing) {
-			return;
-		}
-		this.setState({ refreshing: true });
-		this.props.setTopNews();
-		if (this.props.showApiData) {
-			this.setState({ refreshing: false });
+const isTabBarVisible = routes => {
+	var isVisible = true;
+	const screenNames = ['NewsDetailScene'];
+	if (routes.length > 0) {
+		for (let i = 0; i < routes.length; i++) {
+			if (screenNames[0] == routes[i].routeName) {
+				isVisible = false;
+			}
 		}
 	}
+	return isVisible;
+};
 
+const AppTabBar = createMaterialTopTabNavigator(
+	{
+		tab1: {
+			screen: NewsScene
+		},
+		tab2: { screen: NewsDetailScene }
+	},
+	{
+		navigationOptions: ({ navigation }) => ({
+			//navigation.state.routeName
+			tabBarVisible: navigation.state.routes == undefined ? true : isTabBarVisible(navigation.state.routes),
+			header: null,
+			tabBarOptions: {
+				activeTintColor: 'rgb(255,87,34)',
+				inactiveTintColor: 'white',
+				upperCaseLabel: true,
+				style: {
+					backgroundColor: 'rgb(2,136,141)'
+				},
+				labelStyle: {
+					fontSize: 15,
+					fontStyle: 'bold'
+				},
+				indicatorStyle: {
+					backgroundColor: 'rgb(255,87,34)',
+					height: 3
+				}
+			}
+		})
+	}
+);
+
+const NewsSceneStack = createStackNavigator({
+	TabBar: {
+		screen: AppTabBar,
+		navigationOptions: {
+			header: null
+		}
+	},
+	News: {
+		screen: NewsScene,
+		navigationOptions: {
+			header: null
+		}
+	},
+	NewsDetailScene: {
+		screen: NewsDetailScene
+	}
+});
+class SplashScreenScene extends PureComponent {
+	state = {
+		isShowHeader: true
+	};
+	static router = NewsSceneStack.router;
 	render() {
-		const self = this;
-		const { showApiData, articles } = this.props;
-		console.log(showApiData);
+		const { navigation } = this.props;
 		return (
 			<View style={styles.container}>
-				{!showApiData && <Pulse color="rgb(2,136,141)" numPulses={5} diameter={100} speed={10} duration={2000} />}
-				{showApiData && (
-					<View>
-						<GridView
-							data={articles}
-							itemsPerRow={2}
-							refreshControl={
-								<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
-							}
-							renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
-								console.log(item, ' ' + sectionID, ' ' + rowID, ' ' + itemIndex, ' ' + itemID);
-								return (
-									<TouchableOpacity
-										onPress={() => {
-											this.props.navigation.navigate('NewsDetailScene', { index: itemID });
-										}}
-									>
-										<View style={{ backgroundColor: 'white', margin: 7, height: 200, borderRadius: 8 }}>
-											<Image
-												source={{ uri: item.urlToImage }}
-												style={{ flex: 1, height: 150, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
-											/>
-											<Text style={{ marginTop: 5, padding: 5 }}>{item.title}</Text>
-										</View>
-									</TouchableOpacity>
-								);
+				{this.state.isShowHeader && (
+					<View
+						style={{
+							height: 50,
+							backgroundColor: 'rgb(2,136,141)',
+							flexDirection: 'row',
+							alignItems: 'center'
+						}}
+					>
+						<TouchableOpacity
+							onPress={() => {
+								this.props.navigation.openDrawer();
 							}}
-						/>
+						>
+							<Image source={Images.menu.source} style={{ width: 25, height: 25, marginLeft: 5 }} />
+						</TouchableOpacity>
+						}
+						<Text style={{ textSize: 15, color: 'white', marginLeft: 20 }}>Samachar</Text>
 					</View>
 				)}
+				<NewsSceneStack navigation={this.props.navigation} />
 			</View>
 		);
 	}
@@ -85,19 +110,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-const mapDispatchToProps = dispatch => {
-	return {
-		setTopNews: props => {
-			dispatch(setTopNews(props));
-		}
-	};
-};
-
-const mapStateToProps = state => {
-	return {
-		articles: state.new_reducer.articles,
-		showApiData: state.new_reducer.showApiData
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SplashScreenScene);
+export default SplashScreenScene;
