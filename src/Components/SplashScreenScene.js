@@ -3,8 +3,7 @@ import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react
 import NewsDetailScene from './NewsDetailScene';
 import NewsDetail from './NewsDetail';
 import NewsScene from './NewsScene';
-import { Images } from '../images/Images';
-import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { StackNavigator } from 'react-navigation';
 
 const isTabBarVisible = routes => {
@@ -20,12 +19,12 @@ const isTabBarVisible = routes => {
 	return isVisible;
 };
 
-const AppTabBar = createMaterialTopTabNavigator(
+const AppTabBar = createBottomTabNavigator(
 	{
-		tab1: {
+		TAB1: {
 			screen: NewsScene
 		},
-		tab2: { screen: NewsDetailScene }
+		TAB2: { screen: NewsDetailScene }
 	},
 	{
 		navigationOptions: ({ navigation }) => ({
@@ -41,6 +40,7 @@ const AppTabBar = createMaterialTopTabNavigator(
 				},
 				labelStyle: {
 					fontSize: 15,
+					marginBottom: 10,
 					fontStyle: 'bold'
 				},
 				indicatorStyle: {
@@ -70,34 +70,11 @@ const NewsSceneStack = createStackNavigator({
 	}
 });
 class SplashScreenScene extends PureComponent {
-	state = {
-		isShowHeader: true
-	};
 	static router = NewsSceneStack.router;
 	render() {
 		const { navigation } = this.props;
 		return (
 			<View style={styles.container}>
-				{this.state.isShowHeader && (
-					<View
-						style={{
-							height: 50,
-							backgroundColor: 'rgb(2,136,141)',
-							flexDirection: 'row',
-							alignItems: 'center'
-						}}
-					>
-						<TouchableOpacity
-							onPress={() => {
-								this.props.navigation.openDrawer();
-							}}
-						>
-							<Image source={Images.menu.source} style={{ width: 25, height: 25, marginLeft: 5 }} />
-						</TouchableOpacity>
-						}
-						<Text style={{ textSize: 15, color: 'white', marginLeft: 20 }}>Samachar</Text>
-					</View>
-				)}
 				<NewsSceneStack navigation={this.props.navigation} />
 			</View>
 		);
