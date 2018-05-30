@@ -15,7 +15,7 @@ react-native run-android
 4. Navigation Drawer
 5. WebView
 
-# Redux-Saga
+# redux-saga
 ## Getting Started
 Saga is like a separate thread in your application that's solely responsible for side effects. **redux-saga** is a redux middleware, which means this thread can be started, paused and cancelled from the main application with normal redux actions, it has access to the full redux application state and it can dispatch redux actions as well.
 
@@ -26,11 +26,8 @@ npm install redux-saga
 ### Example
 Suppose we have a UI to fetch some data from a remote server. 
 
-We'll create a Saga that watches for all API_CALL_REQUESTED actions and triggers an API call to fetch the news data.
-```
-sagas.js
-```
-
+We'll create a Saga that watches for all API_CALL_REQUEST actions and triggers an API call to fetch the news data.
+```sagas.js```
 ```
 import { takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
@@ -38,8 +35,7 @@ import ApiUrl from '../../Network/ApiUrl';
 import Constants from '../../Network/Constants';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
-//A watcherSaga sees the action and triggers a workerSaga. Use saga helpers to watch for actions differently.
-
+//A watcherSaga sees the action and triggers a workerSaga. 
 export default function* watcherSaga() {
 	yield takeLatest('API_CALL_REQUEST', workerSaga);
 }
@@ -68,6 +64,8 @@ function* workerSaga() {
 	}
 }
 ```
+
+
 
 
 
