@@ -9,6 +9,9 @@ react-native run-android
 ```
 # App Features (React Native)
 
-1. One
-2. Two
-3. Three
+1. redux-saga
+2. axios
+3. TabBar
+4. Navigation Drawer
+5. WebView
+
