@@ -66,8 +66,17 @@ const NewsSceneStack = createStackNavigator({
 		}
 	},
 	NewsDetailScene: {
-		screen: NewsDetailScene
-	}
+		screen: NewsDetailScene,
+		navigationOptions:{
+			gesturesEnabled: false,
+			 drawerLockMode: 'locked-closed' ,
+			 disableGestures: true
+
+
+		}
+	},
+	
+
 });
 class SplashScreenScene extends PureComponent {
 	static router = NewsSceneStack.router;
