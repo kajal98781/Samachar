@@ -15,3 +15,11 @@ react-native run-android
 4. Navigation Drawer
 5. WebView
 
+# Redux-Saga
+
+## Getting Started
+
+```
+npm install redux-saga
+npm install react-redux
+
