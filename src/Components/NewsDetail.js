@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Platform, StyleSheet, Text, View, Image } from 'react-native';
-import * as actions from '../redux/actions';
+import * as actions from '@actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';

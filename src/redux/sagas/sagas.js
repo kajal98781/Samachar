@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
-import ApiUrl from '../../Network/ApiUrl';
-import Constants from '../../Network/Constants';
+import ApiUrl from '@Network/ApiUrl';
+import Constants from '@Network/Constants';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 //A watcherSaga sees the action and triggers a workerSaga. Use saga helpers to watch for actions differently.

@@ -6,8 +6,8 @@
 
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import SplashScreenScene from './src/Components/SplashScreenScene';
-import NewsDetailScene from './src/Components/NewsDetailScene';
+import SplashScreenScene from '@Components/SplashScreenScene';
+import NewsDetailScene from '@Components/NewsDetailScene';
 import { createDrawerNavigator } from 'react-navigation';
 
 const AppDrawer = createDrawerNavigator({

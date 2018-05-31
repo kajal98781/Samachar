@@ -10,10 +10,10 @@ import {
 	RefreshControl
 } from 'react-native';
 import { connect } from 'react-redux';
-import { setTopNews } from '../redux/actions/TopHeadingNewsActions';
+import { setTopNews } from '@actions/TopHeadingNewsActions';
 import Pulse from 'react-native-pulse';
 import GridView from 'react-native-gridview';
-import { Images } from '../images/Images';
+import { Images } from '@images/Images';
 
 class NewsScene extends PureComponent {
 	state = {
