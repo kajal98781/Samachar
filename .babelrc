@@ -8,34 +8,38 @@
 					"rootPathPrefix": "@",
 					"rootPathSuffix": "src"
 				},
-        {
-          "rootPathPrefix": "@Components",
+				{
+					"rootPathPrefix": "@Components",
 					"rootPathSuffix": "src/Components"
-        },
+				},
 				{
 					"rootPathPrefix": "@Network",
 					"rootPathSuffix": "src/Network"
 				},
-        {
+				{
 					"rootPathPrefix": "@actions",
 					"rootPathSuffix": "src/redux/actions"
 				},
-        {
+				{
 					"rootPathPrefix": "@reducers",
 					"rootPathSuffix": "src/redux/reducers"
 				},
-        {
+				{
 					"rootPathPrefix": "@saga",
 					"rootPathSuffix": "src/redux/sagas"
 				},
-        {
-         "rootPathPrefix": "@store",
-         "rootPathSuffix": "src/redux/store"
-       },
-       {
-         "rootPathPrefix": "@images",
-         "rootPathSuffix": "src/images"
-       },
+				{
+					"rootPathPrefix": "@store",
+					"rootPathSuffix": "src/redux/store"
+				},
+				{
+					"rootPathPrefix": "@images",
+					"rootPathSuffix": "src/images"
+				},
+				{
+					"rootPathPrefix": "@common",
+					"rootPathSuffix": "src/common"
+				}
 			]
 		]
 	]

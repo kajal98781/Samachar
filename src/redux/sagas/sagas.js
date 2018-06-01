@@ -23,12 +23,15 @@ function fetchArticles() {
 
 // worker saga: makes the api call when watcher saga sees the action
 //redux-saga helper function call, and stores the result (a resolved or failed Promise) in a response variable.
-function* workerSaga() {
+function* workerSaga(action) {
+	console.log(action);
 	try {
 		const response = yield call(fetchArticles);
 		yield put({ type: 'API_CALL_SUCCESS', response });
 	} catch (error) {
 		console.log(error);
+		action.errorhandler(error);
+
 		// dispatch a failure action to the store with the error
 		yield put({ type: 'API_CALL_FAILURE', error });
 	}

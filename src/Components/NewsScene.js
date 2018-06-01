@@ -14,14 +14,14 @@ import { setTopNews } from '@actions/TopHeadingNewsActions';
 import Pulse from 'react-native-pulse';
 import GridView from 'react-native-gridview';
 import { Images } from '@images/Images';
-
-class NewsScene extends PureComponent {
+import BaseComponent from '@common/BaseComponent';
+class NewsScene extends BaseComponent {
 	state = {
 		refreshing: false
 	};
 
 	componentDidMount() {
-		this.props.setTopNews();
+		this.dispatchAction(this.props.setTopNews());
 	}
 
 	_onRefresh() {
@@ -38,7 +38,6 @@ class NewsScene extends PureComponent {
 	render() {
 		const self = this;
 		const { showApiData, articles } = this.props;
-		console.log(showApiData);
 		return (
 			<View style={styles.container}>
 				<View
@@ -68,7 +67,6 @@ class NewsScene extends PureComponent {
 								<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
 							}
 							renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
-								console.log(item, ' ' + sectionID, ' ' + rowID, ' ' + itemIndex, ' ' + itemID);
 								return (
 									<TouchableOpacity
 										onPress={() => {
